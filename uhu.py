@@ -1,5 +1,6 @@
 from flask import Flask, request, jsonify
 import datetime
+import os  # Importar os para leer variables de entorno
 
 app = Flask(__name__)
 
@@ -29,4 +30,6 @@ def verificar_licencia():
     return jsonify({"status": "invalida"}), 400
 
 if __name__ == "__main__":
-    app.run(host="0.0.0.0", port=5000)
+    port = int(os.environ.get("PORT", 5000))  # Render asigna un puerto automáticamente
+    app.run(host="0.0.0.0", port=port)
+
