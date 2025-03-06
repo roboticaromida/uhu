@@ -1,14 +1,18 @@
 from flask import Flask, request, jsonify
 import datetime
-import os  # Importar os para leer variables de entorno
 
 app = Flask(__name__)
 
-# Base de datos de ejemplo (esto luego irá en una DB real)
+# Base de datos de ejemplo
 licencias = {
     "123456": {"usuario": "Cliente1", "expiracion": "2025-12-31"},
     "ABCDEF": {"usuario": "Cliente2", "expiracion": "2024-06-30"},
 }
+
+# Ruta principal de prueba
+@app.route("/")
+def home():
+    return jsonify({"message": "Servidor Flask activo y funcionando correctamente"})
 
 # Ruta para verificar la licencia
 @app.route("/verificar_licencia", methods=["POST"])
@@ -30,6 +34,4 @@ def verificar_licencia():
     return jsonify({"status": "invalida"}), 400
 
 if __name__ == "__main__":
-    port = int(os.environ.get("PORT", 5000))  # Render asigna un puerto automáticamente
-    app.run(host="0.0.0.0", port=port)
-
+    app.run(host="0.0.0.0", port=10000)
